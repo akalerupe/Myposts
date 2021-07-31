@@ -25,14 +25,10 @@ class MainActivity : AppCompatActivity() {
                if (response.isSuccessful) {
                    var postList=response.body()!!
                    rvposts.layoutManager=LinearLayoutManager(baseContext)
-                   var postsAdapter=PostsAdapter(postList)
+                  var postsAdapter=PostsAdapter(postList,baseContext)
                    rvposts.adapter=postsAdapter
                    Toast.makeText(baseContext, "${postList!!.size} posts", Toast.
                    LENGTH_LONG).show()
-                   var postDetails= mutableListOf<Post>()
-                   for (i in 1..postList.size){
-                       postDetails.add(Post(7,76,"Details","These are your details"))
-                   }
                }
             }
 

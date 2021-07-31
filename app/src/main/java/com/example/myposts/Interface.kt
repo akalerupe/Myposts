@@ -10,7 +10,6 @@ interface Interface {
         @GET("posts")
         fun getPosts():Call<List<Post>>
 
-        @GET("posts/{postId:Int}")
-        fun getPostById(@Path("id")postId:Int):Call<Post>
-
+        @GET("posts/{Id}")
+        fun getPostById(@Path("Id")postId:Int):Call<Post>
         }
