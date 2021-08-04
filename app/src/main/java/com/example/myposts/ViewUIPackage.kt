@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ViewUIPackage : AppCompatActivity() {
+    lateinit var rvcomments: RecyclerView
     lateinit var tvposttitle:TextView
     lateinit var tvtextbody:TextView
 
@@ -19,7 +22,9 @@ class ViewUIPackage : AppCompatActivity() {
         postId=intent.getIntExtra("POST_ID",0)
         tvposttitle=findViewById(R.id.tvposttitle)
         tvtextbody=findViewById(R.id.tvtextbody)
+        rvcomments=findViewById(R.id.rvcomments)
         fetchPostsById()
+        fetchComments()
 
     }
     fun fetchPostsById(){
@@ -39,4 +44,26 @@ class ViewUIPackage : AppCompatActivity() {
             }
         })
     }
-}
+    fun fetchComments(){
+        var apiClient=ApiClient.buildApiClient(Interface::class.java)
+        var request=apiClient.getPostComments(postId)
+        request.enqueue(object :Callback<List<Comments>>{
+            override fun onResponse(call: Call<List<Comments>?>, response: Response<List<Comments>?>) {
+                if (response.isSuccessful) {
+                    var comment = response.body()!!
+                    var commentsAdapter=postCommentsAdapter(comment)
+                    rvcomments.adapter=commentsAdapter
+                    rvcomments.layoutManager=LinearLayoutManager(baseContext)
+
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<Comments>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        }
+            )
+
+        }
+    }
