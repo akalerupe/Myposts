@@ -1,6 +1,8 @@
 package com.example.myposts
 
 data class Comments(
-val posttitle:String,
-val textbody:String
+val tvname:String,
+val tvemail:String,
+val tvcommentsbody:String,
+
 )

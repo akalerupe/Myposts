@@ -1,12 +1,14 @@
 package com.example.myposts
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class postCommentsAdapter( var commentsList:List<Comments>):RecyclerView.Adapter<postCommentsViewHolder>() {
+class postCommentsAdapter( var context : Context,var commentsList:List<Comments>):RecyclerView.Adapter<postCommentsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): postCommentsViewHolder {
         var itemView=LayoutInflater.from(parent.context).inflate(R.layout.activity_view_uipackage,parent,false)
         return postCommentsViewHolder(itemView)
@@ -14,8 +16,9 @@ class postCommentsAdapter( var commentsList:List<Comments>):RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: postCommentsViewHolder, position: Int) {
         var currentComments=commentsList.get(position)
-        holder.tvposttitle.text=currentComments.posttitle
-        holder.tvtextbody.text=currentComments.textbody
+        holder.tvname.text=currentComments.tvname
+        holder.tvemail.text=currentComments.tvemail
+        holder.tvcommentsbody.text=currentComments.tvcommentsbody
     }
 
     override fun getItemCount(): Int {
@@ -23,7 +26,8 @@ class postCommentsAdapter( var commentsList:List<Comments>):RecyclerView.Adapter
     }
 }
 class postCommentsViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-    var tvtextbody=itemView.findViewById<TextView>(R.id.tvtextbody)
-    var tvposttitle=itemView.findViewById<TextView>(R.id.tvposttitle)
-
+    var tvname=itemView.findViewById<TextView>(R.id.tvname)
+    var tvemail=itemView.findViewById<TextView>(R.id.tvemail)
+    var tvcommentsbody=itemView.findViewById<TextView>(R.id.tvcommentsbody)
+//    var dvcomments=itemView.findViewById<>(R.id.dvcomments)
 }

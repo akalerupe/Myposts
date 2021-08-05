@@ -1,5 +1,6 @@
 package com.example.myposts
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -45,22 +46,23 @@ class ViewUIPackage : AppCompatActivity() {
         })
     }
     fun fetchComments(){
+        postId=intent.getIntExtra("postId",0)
         var apiClient=ApiClient.buildApiClient(Interface::class.java)
         var request=apiClient.getPostComments(postId)
         request.enqueue(object :Callback<List<Comments>>{
             override fun onResponse(call: Call<List<Comments>?>, response: Response<List<Comments>?>) {
                 if (response.isSuccessful) {
                     var comment = response.body()!!
-                    var commentsAdapter=postCommentsAdapter(comment)
+                    var commentsAdapter=postCommentsAdapter(baseContext,comment)
                     rvcomments.adapter=commentsAdapter
                     rvcomments.layoutManager=LinearLayoutManager(baseContext)
-
 
                 }
             }
 
             override fun onFailure(call: Call<List<Comments>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Toast.makeText(baseContext,t.message,Toast.LENGTH_LONG).show()
+
             }
         }
             )
