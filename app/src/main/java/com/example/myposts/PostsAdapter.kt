@@ -23,6 +23,7 @@ class PostsAdapter(var postList:List<Post>,var context:Context):RecyclerView.Ada
         holder.cvposts.setOnClickListener {
             var intent=Intent(context,ViewUIPackage::class.java)
             intent.putExtra("POST_ID",currentPosts.id)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }
     }

@@ -46,14 +46,13 @@ class ViewUIPackage : AppCompatActivity() {
         })
     }
     fun fetchComments(){
-        postId=intent.getIntExtra("postId",0)
         var apiClient=ApiClient.buildApiClient(Interface::class.java)
         var request=apiClient.getPostComments(postId)
         request.enqueue(object :Callback<List<Comments>>{
             override fun onResponse(call: Call<List<Comments>?>, response: Response<List<Comments>?>) {
                 if (response.isSuccessful) {
                     var comment = response.body()!!
-                    var commentsAdapter=postCommentsAdapter(baseContext,comment)
+                    var commentsAdapter=postCommentsAdapter(comment)
                     rvcomments.adapter=commentsAdapter
                     rvcomments.layoutManager=LinearLayoutManager(baseContext)
 

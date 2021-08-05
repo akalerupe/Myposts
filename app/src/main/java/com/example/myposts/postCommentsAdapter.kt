@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class postCommentsAdapter( var context : Context,var commentsList:List<Comments>):RecyclerView.Adapter<postCommentsViewHolder>() {
+class postCommentsAdapter(var commentsList:List<Comments>):RecyclerView.Adapter<postCommentsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): postCommentsViewHolder {
-        var itemView=LayoutInflater.from(parent.context).inflate(R.layout.activity_view_uipackage,parent,false)
+        var itemView=LayoutInflater.from(parent.context).inflate(R.layout.activity_comments,parent,false)
         return postCommentsViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: postCommentsViewHolder, position: Int) {
         var currentComments=commentsList.get(position)
-        holder.tvname.text=currentComments.tvname
-        holder.tvemail.text=currentComments.tvemail
-        holder.tvcommentsbody.text=currentComments.tvcommentsbody
+        holder.tvname.text=currentComments.name
+        holder.tvemail.text=currentComments.email
+        holder.tvcommentsbody.text=currentComments.commentsbody
     }
 
     override fun getItemCount(): Int {
